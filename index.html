@@ -18,66 +18,89 @@
 
       <div class="metrics-grid">
         <div class="metric-card">
-          <div class="metric-icon">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-              ></path>
-            </svg>
+          <div class="metric-header">
+            <div class="metric-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                ></path>
+              </svg>
+            </div>
+            <div class="metric-title">Listed Jobs</div>
           </div>
-          <div class="metric-value" id="totalJobs">0</div>
-          <div class="metric-label">Listed Jobs</div>
+          <div class="metric-content">
+            <div class="metric-value" id="totalJobs">0</div>
+            <div class="metric-trend">Active Jobs</div>
+          </div>
         </div>
 
         <div class="metric-card">
-          <div class="metric-icon">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M3 6h18"></path>
-              <path
-                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-              ></path>
-            </svg>
+          <div class="metric-header">
+            <div class="metric-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M3 6h18"></path>
+                <path
+                  d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                ></path>
+              </svg>
+            </div>
+            <div class="metric-title">Deleted Jobs</div>
           </div>
-          <div class="metric-value" id="deletedJobs">0</div>
-          <div class="metric-label">Deleted Jobs</div>
+          <!-- <div class="metric-value" id="deletedJobs">0</div>
+          <div class="metric-label">Deleted Jobs</div> -->
+          <div class="metric-content">
+            <div class="deleted-stats">
+              <div class="deleted-stat">
+                <div class="stat-label">Today</div>
+                <div class="metric-value highlight" id="deletedToday">700</div>
+              </div>
+              <div class="deleted-stat">
+                <div class="stat-label">This Week</div>
+                <div class="metric-value" id="deletedThisWeek">9000</div>
+              </div>
+              <div class="deleted-stat">
+                <div class="stat-label">This Month</div>
+                <div class="metric-value" id="deletedThisMonth">21000</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="metric-card">
-          <div class="metric-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-eye"
-            >
-              <path
-                d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
-              />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
+          <div class="metric-header">
+            <div class="metric-icon">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <div class="metric-title">Viewed Jobs</div>
           </div>
-          <div class="metric-value" id="viewedJobs">0</div>
-          <div class="metric-label">Viewed Jobs</div>
+          <div class="metric-content">
+            <div class="metric-value" id="viewedJobs">0</div>
+            <div class="metric-trend">Tracked Views</div>
+          </div>
         </div>
       </div>
 

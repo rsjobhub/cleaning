@@ -11,16 +11,15 @@ let deletedToday = 0;
 
 // DOM Elements
 const totalJobsElement = document.getElementById("totalJobs");
-const deletedJobsElement = document.getElementById("deletedJobs");
 const viewedJobsElement = document.getElementById("viewedJobs");
 const jobsTableBody = document.getElementById("jobsTableBody");
 const deleteSelectedButton = document.getElementById("deleteSelected");
+
 
 // Default metrics
 function loadMatrics() {
   const viewedJobs = jobs.filter((job) => job.viewed).length;
   totalJobsElement.textContent = jobs.length;
-  deletedJobsElement.textContent = deletedToday;
   viewedJobsElement.textContent = viewedJobs;
 }
 
@@ -28,10 +27,7 @@ function updateViewedJobs() {
   const viewedJobs = jobs.filter((job) => job.viewed).length;
   viewedJobsElement.textContent = viewedJobs;
 }
-// Update metrics
-function updateMetrics() {
-  deletedJobsElement.textContent = deletedToday;
-}
+
 
 function renderJobs() {
   jobsTableBody.innerHTML = "";
@@ -50,11 +46,7 @@ function renderJobs() {
       job.id
     }')">${job.link}</a>
       </td>
-      <td>
-        <span class="status-indicator ${job.viewed ? "viewed" : "unviewed"}">
-          ${job.viewed ? "Viewed" : "New"}
-        </span>
-      </td>
+     
       <td>
         <button onclick="deleteJob('${
           job.id
@@ -74,7 +66,6 @@ function markAsViewed(jobId) {
   if (job) {
     job.viewed = true;
     renderJobs();
-    updateMetrics();
     updateViewedJobs();
   }
 }
@@ -83,7 +74,6 @@ function markAsViewed(jobId) {
 function deleteJob(jobId) {
   jobs = jobs.filter((job) => job.id !== jobId);
   deletedToday++;
-  updateMetrics();
   renderJobs();
 }
 
@@ -103,7 +93,6 @@ function deleteSelectedJobs() {
     jobs = jobs.filter((job) => !selectedIds.includes(job.id));
     deletedToday += selectedIds.length;
 
-    updateMetrics();
     renderJobs();
   } else {
     return false;

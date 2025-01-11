@@ -51,7 +51,7 @@ body {
   font-weight: 700;
   color: var(--text-primary);
   text-align: center;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 .dashboard-title p {
   text-align: center;
@@ -67,8 +67,8 @@ body {
 
 .metric-card {
   background: var(--text-primary);
-  padding: 1.5rem;
-  border-radius: 7px;
+  padding: 1rem;
+  border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
   cursor: pointer;
@@ -78,21 +78,91 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.metric-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 .metric-icon {
-  color: var(--primary);
-  margin-bottom: 1rem;
+  background: #dfe1e321;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 7px;
+  color: var(--background);
+}
+
+.metric-title {
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  justify-content: center;
+  margin-top: 3rem;
+  position: relative;
 }
 
 .metric-value {
   font-size: 28px;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 0.5rem;
+  line-height: 1;
 }
-
+.metric-trend {
+  color: var(--background);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
 .metric-label {
   color: #f0f6fec2;
   font-size: 14px;
+}
+
+.deleted-metrics .metric-content {
+  padding: 0;
+}
+
+.deleted-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  height: 100%;
+}
+
+.deleted-stat {
+  text-align: center;
+  padding: 1.5rem 0.5rem;
+  background-color: #dfe1e321;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #d1d6dc;
+  margin-bottom: 0.5rem;
+}
+.deleted-stat .metric-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+.deleted-stat .metric-value.highlight {
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .table-container {
@@ -195,6 +265,15 @@ tr:hover {
   left: 0;
 }
 
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deleted-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media (max-width: 640px) {
   .container {
     padding: 1rem;
@@ -215,9 +294,32 @@ tr:hover {
 }
 @media (max-width: 549px) {
   .dashboard-title h1 {
-    font-size: 18px;;
+    font-size: 18px;
   }
   .dashboard-title p {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .deleted-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .deleted-stat {
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .table-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .delete-button {
+    width: 100%;
   }
 }
