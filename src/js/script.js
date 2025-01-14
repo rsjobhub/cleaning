@@ -15,7 +15,6 @@ const viewedJobsElement = document.getElementById("viewedJobs");
 const jobsTableBody = document.getElementById("jobsTableBody");
 const deleteSelectedButton = document.getElementById("deleteSelected");
 
-
 // Default metrics
 function loadMatrics() {
   const viewedJobs = jobs.filter((job) => job.viewed).length;
@@ -27,7 +26,6 @@ function updateViewedJobs() {
   const viewedJobs = jobs.filter((job) => job.viewed).length;
   viewedJobsElement.textContent = viewedJobs;
 }
-
 
 function renderJobs() {
   jobsTableBody.innerHTML = "";
@@ -42,15 +40,11 @@ function renderJobs() {
       </td>
       <td>${job.id}</td>
       <td>
-        <a href="${job.link}" target="_blank" onclick="markAsViewed('${
-      job.id
-    }')">${job.link}</a>
+        <a href="${job.link}" target="_blank" onclick="markAsViewed('${job.id}')">${job.link}</a>
       </td>
      
       <td>
-        <button onclick="deleteJob('${
-          job.id
-        }')" class="delete-button">Delete</button>
+        <button onclick="deleteJob('${job.id}')" class="delete-button">Delete</button>
       </td>
     `;
 
@@ -116,3 +110,4 @@ document.addEventListener("change", (e) => {
 // Initial render
 loadMatrics();
 renderJobs();
+
