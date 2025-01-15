@@ -41,10 +41,28 @@ body {
   max-width: 1124px;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
 }
+
+.logout-button {
+  position: absolute;
+  right: 2rem;
+}
+
+.logout-button button {
+  background:  crimson;
+  color: white;
+  border: none;
+  height: 38px;
+  padding:0 2rem ;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
 .dashboard-title {
   margin-bottom: 2rem;
-  padding: 4rem 0 2rem;
+  padding: 8rem 0 2rem;
 }
 .dashboard-title h1 {
   font-size: 28px;
@@ -272,7 +290,7 @@ main.login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--background)
+  background: var(--background);
 }
 .login-container {
   background: #fff;
@@ -286,7 +304,7 @@ main.login-wrapper {
   margin-bottom: 2rem;
 }
 .login-container h2 {
-  margin-bottom: .2rem;
+  margin-bottom: 0.2rem;
   font-size: 24px;
 }
 .subtitle {
@@ -315,11 +333,10 @@ main.login-wrapper {
   color: var(--text-primary);
 }
 
-input:focus+label {
+input:focus + label {
   transform: translateY(-25px);
   color: #134fa3;
 }
-
 
 .login-btn {
   background: var(--text-primary);
@@ -332,8 +349,6 @@ input:focus+label {
   height: 45px;
   margin-top: 2rem;
 }
-
-
 
 .mobile-message {
   display: none;
@@ -362,12 +377,23 @@ input:focus+label {
   margin-bottom: 20px;
 }
 
+
+
 @media (max-width: 768px) {
-  .login-container {
+  .login-container, .index-container {
     display: none;
   }
   .mobile-message {
     display: block;
+  }
+
+  .index-mobile-message {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--background);
   }
 }
 /* ? ========================== LOGIN PAGE ENDS+++++++++++++++++++++++ */
