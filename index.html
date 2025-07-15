@@ -6,8 +6,7 @@
     <title>RSJOBHUB DATA CLEANING</title>
     <link rel="stylesheet" href="/src/css/styles.css" />
   </head>
-  <body>
-    <div class="container index-container">
+ <div class="container index-container">
       <div class="logout-button">
         <a href="">
           <button>logout</button>
@@ -65,8 +64,6 @@
             </div>
             <div class="metric-title">Deleted Jobs</div>
           </div>
-          <!-- <div class="metric-value" id="deletedJobs">0</div>
-          <div class="metric-label">Deleted Jobs</div> -->
           <div class="metric-content">
             <div class="deleted-stats">
               <div class="deleted-stat">
@@ -110,8 +107,19 @@
       </div>
 
       <div class="table-container">
+        <div class="filter-container">
+          <label class="filter-label">Filter Jobs:</label>
+          <select class="filter-dropdown" id="jobFilter">
+            <option value="all">All Jobs</option>
+            <option value="remote-uk">Remote UK</option>
+            <option value="remote-us">Remote US</option>
+            <option value="sponsored-uk">Sponsored UK</option>
+            <option value="sponsored-us">Sponsored US</option>
+          </select>
+        </div>
+
         <div class="table-header">
-          <h2>Jobs Overview</h2>
+          <h2 id="tableTitle">Jobs Overview</h2>
           <button id="deleteSelected" class="delete-button" disabled>
             <span>
               <svg
@@ -140,18 +148,17 @@
           <table>
             <thead>
               <tr>
-                <th>
-                  <!-- <input type="checkbox" id="selectAll" /> -->
-                  ...
-                </th>
+                <th>...</th>
                 <th>Job ID</th>
                 <th>Job Link</th>
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody id="jobsTableBody">
-              <!-- Jobs will be inserted here dynamically -->
-            </tbody>
+            <tbody id="alljobs"></tbody>
+            <tbody id="remote-uk" style="display: none"></tbody>
+            <tbody id="remote-us" style="display: none"></tbody>
+            <tbody id="sponsored-uk" style="display: none"></tbody>
+            <tbody id="sponsored-us" style="display: none"></tbody>
           </table>
         </div>
       </div>
@@ -160,7 +167,6 @@
     <!-- mobile message -->
     <div class="index-mobile-message">
       <div class="mobile-message">
-        <!-- <div class="mobile-icon">📱</div> -->
         <div class="mobile-icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
