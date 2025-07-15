@@ -1,113 +1,304 @@
-// Mock data - replace with your actual data source
-let jobs = [
-  { id: "JOB001", link: "https://example.com/job1", viewed: false },
-  { id: "JOB002", link: "https://example.com/job2", viewed: true },
-  { id: "JOB003", link: "https://example.com/job3", viewed: false },
-  { id: "JOB004", link: "https://example.com/job4", viewed: true },
-  { id: "JOB005", link: "https://example.com/job5", viewed: false },
-];
+  // Mock data with categories
+      let allJobs = {
+        all: [
+          {
+            id: "JOB001",
+            link: "https://example.com/job1",
+            viewed: false,
+            category: "all"
+          },
+          {
+            id: "JOB002",
+            link: "https://example.com/job2",
+            viewed: true,
+            category: "all"
+          },
+          {
+            id: "JOB003",
+            link: "https://example.com/job3",
+            viewed: false,
+            category: "all"
+          },
+          {
+            id: "JOB004",
+            link: "https://example.com/job4",
+            viewed: true,
+            category: "all"
+          },
+          {
+            id: "JOB005",
+            link: "https://example.com/job5",
+            viewed: false,
+            category: "all"
+          }
+        ],
+        "remote-uk": [
+          {
+            id: "RUK001",
+            link: "https://example.com/remote-uk1",
+            viewed: false,
+            category: "remote-uk"
+          },
+          {
+            id: "RUK002",
+            link: "https://example.com/remote-uk2",
+            viewed: true,
+            category: "remote-uk"
+          },
+          {
+            id: "RUK003",
+            link: "https://example.com/remote-uk3",
+            viewed: false,
+            category: "remote-uk"
+          }
+        ],
+        "remote-us": [
+          {
+            id: "RUS001",
+            link: "https://example.com/remote-us1",
+            viewed: false,
+            category: "remote-us"
+          },
+          {
+            id: "RUS002",
+            link: "https://example.com/remote-us2",
+            viewed: true,
+            category: "remote-us"
+          },
+          {
+            id: "RUS003",
+            link: "https://example.com/remote-us3",
+            viewed: false,
+            category: "remote-us"
+          },
+          {
+            id: "RUS004",
+            link: "https://example.com/remote-us4",
+            viewed: true,
+            category: "remote-us"
+          }
+        ],
+        "sponsored-uk": [
+          {
+            id: "SUK001",
+            link: "https://example.com/sponsored-uk1",
+            viewed: false,
+            category: "sponsored-uk"
+          },
+          {
+            id: "SUK002",
+            link: "https://example.com/sponsored-uk2",
+            viewed: true,
+            category: "sponsored-uk"
+          }
+        ],
+        "sponsored-us": [
+          {
+            id: "SUS001",
+            link: "https://example.com/sponsored-us1",
+            viewed: false,
+            category: "sponsored-us"
+          },
+          {
+            id: "SUS002",
+            link: "https://example.com/sponsored-us2",
+            viewed: true,
+            category: "sponsored-us"
+          },
+          {
+            id: "SUS003",
+            link: "https://example.com/sponsored-us3",
+            viewed: false,
+            category: "sponsored-us"
+          }
+        ]
+      };
 
-let deletedToday = 0;
+      let deletedToday = 0;
+      let currentFilter = "all";
 
-// DOM Elements
-const totalJobsElement = document.getElementById("totalJobs");
-const viewedJobsElement = document.getElementById("viewedJobs");
-const jobsTableBody = document.getElementById("jobsTableBody");
-const deleteSelectedButton = document.getElementById("deleteSelected");
+      // DOM Elements
+      const totalJobsElement = document.getElementById("totalJobs");
+      const viewedJobsElement = document.getElementById("viewedJobs");
+      const deleteSelectedButton = document.getElementById("deleteSelected");
+      const jobFilter = document.getElementById("jobFilter");
+      const tableTitle = document.getElementById("tableTitle");
 
-// Default metrics
-function loadMatrics() {
-  const viewedJobs = jobs.filter((job) => job.viewed).length;
-  totalJobsElement.textContent = jobs.length;
-  viewedJobsElement.textContent = viewedJobs;
-}
+      // Filter titles mapping
+      const filterTitles = {
+        all: "All Jobs Overview",
+        "remote-uk": "Remote UK Jobs",
+        "remote-us": "Remote US Jobs",
+        "sponsored-uk": "Sponsored UK Jobs",
+        "sponsored-us": "Sponsored US Jobs"
+      };
 
-function updateViewedJobs() {
-  const viewedJobs = jobs.filter((job) => job.viewed).length;
-  viewedJobsElement.textContent = viewedJobs;
-}
+      // Load metrics
+      function loadMetrics() {
+        const currentJobs = allJobs[currentFilter];
+        const viewedJobs = currentJobs.filter((job) => job.viewed).length;
+        totalJobsElement.textContent = currentJobs.length;
+        viewedJobsElement.textContent = viewedJobs;
+        tableTitle.textContent = filterTitles[currentFilter];
+      }
 
-function renderJobs() {
-  jobsTableBody.innerHTML = "";
+      function updateViewedJobs() {
+        const currentJobs = allJobs[currentFilter];
+        const viewedJobs = currentJobs.filter((job) => job.viewed).length;
+        viewedJobsElement.textContent = viewedJobs;
+      }
 
-  jobs.forEach((job) => {
-    const row = document.createElement("tr");
-    row.className = job.viewed ? "viewed" : "unviewed";
+      // Hide all tbody elements
+      function hideAllTbodies() {
+        const tbodies = document.querySelectorAll("tbody");
+        tbodies.forEach((tbody) => {
+          tbody.style.display = "none";
+        });
+      }
 
-    row.innerHTML = `
-      <td>
-        <input type="checkbox" class="job-checkbox" data-job-id="${job.id}">
-      </td>
-      <td>${job.id}</td>
-      <td>
-        <a href="${job.link}" target="_blank" onclick="markAsViewed('${job.id}')">${job.link}</a>
-      </td>
-     
-      <td>
-        <button onclick="deleteJob('${job.id}')" class="delete-button">Delete</button>
-      </td>
-    `;
+      // Show specific tbody
+      function showTbody(category) {
+        const targetTbody = document.getElementById(
+          category === "all" ? "alljobs" : category
+        );
+        if (targetTbody) {
+          targetTbody.style.display = "table-row-group";
+        }
+      }
 
-    jobsTableBody.appendChild(row);
-  });
+      // Render jobs for specific category
+      function renderJobs(category = "all") {
+        const targetTbodyId = category === "all" ? "alljobs" : category;
+        const targetTbody = document.getElementById(targetTbodyId);
 
-  updateDeleteButtonState();
-}
+        if (!targetTbody) return;
 
-// Mark job as viewed
-function markAsViewed(jobId) {
-  const job = jobs.find((j) => j.id === jobId);
-  if (job) {
-    job.viewed = true;
-    renderJobs();
-    updateViewedJobs();
-  }
-}
+        targetTbody.innerHTML = "";
+        const jobs = allJobs[category] || [];
 
-// Delete single job
-function deleteJob(jobId) {
-  jobs = jobs.filter((job) => job.id !== jobId);
-  deletedToday++;
-  renderJobs();
-}
+        jobs.forEach((job) => {
+          const row = document.createElement("tr");
+          row.className = job.viewed ? "viewed" : "unviewed";
 
-// Delete selected jobs
-function deleteSelectedJobs() {
-  let confirmDelete = confirm(
-    "Permanently delete data from Database, Are you sure?"
-  );
-  if (confirmDelete) {
-    const selectedCheckboxes = document.querySelectorAll(
-      ".job-checkbox:checked"
-    );
-    const selectedIds = Array.from(selectedCheckboxes).map(
-      (checkbox) => checkbox.dataset.jobId
-    );
+          row.innerHTML = `
+            <td>
+              <input type="checkbox" class="job-checkbox" data-job-id="${job.id}" data-category="${category}">
+            </td>
+            <td>${job.id}</td>
+            <td>
+              <a href="${job.link}" target="_blank" onclick="markAsViewed('${job.id}', '${category}')">${job.link}</a>
+            </td>
+            <td>
+              <button onclick="deleteJob('${job.id}', '${category}')" class="delete-button">Delete</button>
+            </td>
+          `;
 
-    jobs = jobs.filter((job) => !selectedIds.includes(job.id));
-    deletedToday += selectedIds.length;
+          targetTbody.appendChild(row);
+        });
 
-    renderJobs();
-  } else {
-    return false;
-  }
-}
+        updateDeleteButtonState();
+      }
 
-// Update delete button state
-function updateDeleteButtonState() {
-  const selectedCheckboxes = document.querySelectorAll(".job-checkbox:checked");
-  deleteSelectedButton.disabled = selectedCheckboxes.length === 0;
-}
+      // Mark job as viewed
+      function markAsViewed(jobId, category) {
+        const job = allJobs[category].find((j) => j.id === jobId);
+        if (job) {
+          job.viewed = true;
+          renderJobs(category);
+          if (category === currentFilter) {
+            updateViewedJobs();
+          }
+        }
+      }
 
-deleteSelectedButton.addEventListener("click", deleteSelectedJobs);
+      // Delete single job
+      function deleteJob(jobId, category) {
+        if (confirm("Are you sure you want to delete this job?")) {
+          allJobs[category] = allJobs[category].filter(
+            (job) => job.id !== jobId
+          );
+          deletedToday++;
+          renderJobs(category);
+          if (category === currentFilter) {
+            loadMetrics();
+          }
+        }
+      }
 
-document.addEventListener("change", (e) => {
-  if (e.target.classList.contains("job-checkbox")) {
-    updateDeleteButtonState();
-  }
-});
+      // Delete selected jobs
+      function deleteSelectedJobs() {
+        const confirmDelete = confirm(
+          "Permanently delete data from Database, Are you sure?"
+        );
+        if (confirmDelete) {
+          const selectedCheckboxes = document.querySelectorAll(
+            ".job-checkbox:checked"
+          );
 
-// Initial render
-loadMatrics();
-renderJobs();
+          selectedCheckboxes.forEach((checkbox) => {
+            const jobId = checkbox.dataset.jobId;
+            const category = checkbox.dataset.category;
+            allJobs[category] = allJobs[category].filter(
+              (job) => job.id !== jobId
+            );
+            deletedToday++;
+          });
 
+          renderJobs(currentFilter);
+          loadMetrics();
+        }
+      }
+
+      // Update delete button state
+      function updateDeleteButtonState() {
+        const selectedCheckboxes = document.querySelectorAll(
+          ".job-checkbox:checked"
+        );
+        deleteSelectedButton.disabled = selectedCheckboxes.length === 0;
+      }
+
+      // Handle filter change
+      function handleFilterChange() {
+        const selectedFilter = jobFilter.value;
+        currentFilter = selectedFilter;
+
+        // Hide all tbody elements
+        hideAllTbodies();
+
+        // Show the selected tbody
+        showTbody(selectedFilter);
+
+        // Render jobs for the selected category
+        renderJobs(selectedFilter);
+
+        // Update metrics
+        loadMetrics();
+      }
+
+      // Event listeners
+      deleteSelectedButton.addEventListener("click", deleteSelectedJobs);
+      jobFilter.addEventListener("change", handleFilterChange);
+
+      document.addEventListener("change", (e) => {
+        if (e.target.classList.contains("job-checkbox")) {
+          updateDeleteButtonState();
+        }
+      });
+
+      // Initial render
+      function initializeApp() {
+        // Render all categories
+        Object.keys(allJobs).forEach((category) => {
+          renderJobs(category);
+        });
+
+        // Show default view
+        hideAllTbodies();
+        showTbody("all");
+
+        // Load metrics
+        loadMetrics();
+      }
+
+      // Initialize the app
+      initializeApp();
