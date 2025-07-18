@@ -407,7 +407,8 @@ input:focus + label {
 }
 
 @media (max-width: 768px) {
-  .container {
+  .login-container,
+  .index-container {
     display: none;
   }
   .mobile-message {
@@ -421,6 +422,16 @@ input:focus + label {
     justify-content: center;
     align-items: center;
     background: var(--background);
+  }
+}
+/* ? ========================== LOGIN PAGE ENDS+++++++++++++++++++++++ */
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deleted-stats {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
